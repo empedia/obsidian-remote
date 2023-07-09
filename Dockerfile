@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:debianbookworm
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:ubuntujammy
 
 LABEL maintainer="github@sytone.com" \
       org.opencontainers.image.authors="github@sytone.com" \
