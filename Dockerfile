@@ -17,13 +17,16 @@ ARG OBSIDIAN_VERSION=1.3.5
 
 # Download and install Obsidian
 RUN echo "**** download obsidian ****" && \
-    curl --location --output obsidian.deb "https://github.com/obsidianmd/obsidian-releases/releases/download/v${OBSIDIAN_VERSION}/obsidian_${OBSIDIAN_VERSION}_amd64.deb" && \
-    dpkg -i obsidian.deb
+#    curl --location --output obsidian.deb "https://github.com/obsidianmd/obsidian-releases/releases/download/v${OBSIDIAN_VERSION}/obsidian_${OBSIDIAN_VERSION}_amd64.deb" && \
+#    dpkg -i obsidian.deb
+curl --location --output obsidian.AppImage "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.3.5/Obsidian-1.3.5.AppImage" && \
+chmod u+x ./obsidian.AppImage && \
+./obsidian.AppImage
 
-#RUN echo "**** install git credentials manager ****" && \
-#    curl --location --output gcm.deb "https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.2.1/gcm-linux_amd64.2.2.1.deb" && \
-#    dpkg -i gcm.deb && \
-#    git-credential-manager configure
+RUN echo "**** install git credentials manager ****" && \
+    curl --location --output gcm.deb "https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.2.1/gcm-linux_amd64.2.2.1.deb" && \
+    dpkg -i gcm.deb && \
+    git-credential-manager configure
 
 # Environment variables
 ENV CUSTOM_PORT="8080" \
