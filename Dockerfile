@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:debianbullseye
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:debianbookworm
 
 LABEL maintainer="github@sytone.com" \
       org.opencontainers.image.authors="github@sytone.com" \
@@ -9,7 +9,7 @@ LABEL maintainer="github@sytone.com" \
 # Update and install extra packages.
 RUN echo "**** install packages ****" && \
     apt-get update && \
-    apt-get install -y --no-install-recommends curl libgtk-3-0 libnotify4 libatspi2.0-0 libsecret-1-0 libnss3 desktop-file-utils fonts-noto-color-emoji git && \
+    apt-get install -y --no-install-recommends curl libgtk-3-0 libnotify4 libatspi2.0-0 libsecret-1-0 libsecret-1-dev libnss3 desktop-file-utils fonts-noto-color-emoji git && \
     apt-get autoclean && rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/*
 
 # Set version label
@@ -20,10 +20,10 @@ RUN echo "**** download obsidian ****" && \
     curl --location --output obsidian.deb "https://github.com/obsidianmd/obsidian-releases/releases/download/v${OBSIDIAN_VERSION}/obsidian_${OBSIDIAN_VERSION}_amd64.deb" && \
     dpkg -i obsidian.deb
 
-RUN echo "**** install git credentials manager ****" && \
-    curl --location --output gcm.deb "https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.2.1/gcm-linux_amd64.2.2.1.deb" && \
-    dpkg -i gcm.deb && \
-    git-credential-manager configure
+#RUN echo "**** install git credentials manager ****" && \
+#    curl --location --output gcm.deb "https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.2.1/gcm-linux_amd64.2.2.1.deb" && \
+#    dpkg -i gcm.deb && \
+#    git-credential-manager configure
 
 # Environment variables
 ENV CUSTOM_PORT="8080" \
