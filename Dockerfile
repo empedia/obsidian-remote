@@ -21,7 +21,7 @@ RUN echo "**** download obsidian ****" && \
     dpkg -i obsidian.deb
 
 RUN echo "**** install git credentials manager ****" && \
-    curl --location --output gcm.deb "https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.2.1/gcm-linux_amd64.2.2.1.deb"
+    curl --location --output gcm.deb "https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.2.1/gcm-linux_amd64.2.2.1.deb" && \
     dpkg -i gcm.deb
     git-credential-manager configure
 
