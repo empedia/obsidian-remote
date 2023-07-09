@@ -20,6 +20,11 @@ RUN echo "**** download obsidian ****" && \
     curl --location --output obsidian.deb "https://github.com/obsidianmd/obsidian-releases/releases/download/v${OBSIDIAN_VERSION}/obsidian_${OBSIDIAN_VERSION}_amd64.deb" && \
     dpkg -i obsidian.deb
 
+RUN echo "**** install git credentials manager ****" && \
+    curl --location --output gcm.deb "https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.2.1/gcm-linux_amd64.2.2.1.deb"
+    dpkg -i gcm.deb
+    git-credential-manager configure
+
 # Environment variables
 ENV CUSTOM_PORT="8080" \
     CUSTOM_HTTPS_PORT="8443" \
@@ -27,7 +32,8 @@ ENV CUSTOM_PORT="8080" \
     PASSWORD="" \
     SUBFOLDER="" \
     TITLE="Obsidian v${OBSIDIAN_VERSION}" \
-    FM_HOME="/vaults"
+    FM_HOME="/vaults" \
+    GCM_CREDENTIAL_STORE="cache"
 
 # Add local files
 COPY root/ /
