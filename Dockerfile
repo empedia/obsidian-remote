@@ -9,7 +9,7 @@ LABEL maintainer="github@sytone.com" \
 # Update and install extra packages.
 RUN echo "**** install packages ****" && \
     apt-get update && \
-    apt-get install -y --no-install-recommends curl libgtk-3-0 libnotify4 libatspi2.0-0 libsecret-1-0 libsecret-1-dev libnss3 desktop-file-utils fonts-noto-color-emoji git make gcc  ksshaskpass && \
+    apt-get install -y --no-install-recommends curl libgtk-3-0 libnotify4 libatspi2.0-0 libsecret-1-0 libsecret-1-dev gnome-keyring libnss3 desktop-file-utils fonts-noto-color-emoji git make gcc seahorse && \
     apt-get autoclean && rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/*
 
 # Set version label
@@ -29,9 +29,9 @@ RUN echo "**** get and make git-credential-libsecret ****" && \
     make
     
 
-RUN echo "**** configure git to use libsecret and ksshaskpass ****" && \
-    git config --global credential.helper /git/contrib/credential/libsecret/git-credential-libsecret && \
-    git config --global core.askPass "ksshaskpass"
+# RUN echo "**** configure git to use libsecret and ksshaskpass ****" && \
+    git config --global credential.helper /git/contrib/credential/libsecret/git-credential-libsecret
+#    git config --global core.askPass "ksshaskpass"
 
 
 #RUN echo "**** install git credential manager ****" && \
