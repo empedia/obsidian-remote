@@ -26,18 +26,20 @@ RUN echo "**** get and make git-credential-libsecret ****" && \
     git sparse-checkout set --no-cone /contrib/credential/libsecret && \
     git checkout && \
     cd ./contrib/credential/libsecret && \
-    make
+    make && \
+    cp /git/contrib/credential/libsecret/git-credential-libsecret /usr/local/bin
     
 
- RUN echo "**** configure git to use libsecret and ksshaskpass ****" && \
-    git config --global credential.helper /git/contrib/credential/libsecret/git-credential-libsecret
+# RUN echo "**** configure git to use libsecret and ksshaskpass ****" && \
+#    git config --global credential.helper libsecret
 #    git config --global core.askPass "ksshaskpass"
 
 
-RUN echo "**** install git credential manager ****" && \
+RUN echo "**** install and configure git credential manager ****" && \
     curl --location --output gcm.deb "https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.2.1/gcm-linux_amd64.2.2.1.deb" && \
     dpkg -i gcm.deb && \
-    git-credential-manager configure
+    git-credential-manager configure --system && \
+    git config --global credential.credentialStore secretservice
 
 # Environment variables
 ENV CUSTOM_PORT="8080" \
